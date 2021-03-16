@@ -1,9 +1,11 @@
 <?php
 
 use Alura\Pdo\Domain\Model\Student;
+use Alura\Pdo\Infastructure\Persistence\ConnectionCreator;
+
 require_once 'vendor/autoload.php';
-$dataBasePath = __DIR__.'/banco.sqlite';
-$pdo = new PDO('sqlite:'.$dataBasePath);
+
+$pdo = ConnectionCreator::createConnection();
 
 $studant = new Student(
     null, "Erickson''); DROP TABLE students; --dias",
