@@ -50,14 +50,15 @@ class PdoStudentRepository implements StudentRepository
 
     public function insert(Student $student): bool
     {
-        $inserQuery = 'INSERT INTO students (name, birth_date) VALUES (:name, :birth_date);';
-        $stmt = $this->connection->prepare($inserQuery);
+        $insertQuery = 'INSERT INTO students (name, birth_date) VALUES (:name, :birth_date);';
+        $stmt = $this->connection->prepare($insertQuery);
 
         $success = $stmt->execute([
            ':name' => $student->name(),
-           ':birth_date' => $student->birthDate()->format('Y-md'),
+           ':birth_date' => $student->birthDate()->format('Y-m-d'),
         ]);
         $student->defineID($this->connection->lastInsertId());
+        return $success;
     }
 
     public function update(Student $student): bool

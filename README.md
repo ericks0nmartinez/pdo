@@ -43,3 +43,9 @@ O padrão Creation Method, que cria uma conexão, de forma que não precisemos repe
 O padrão Repository, que permite extrair a lógica de persistência para uma classe específica
 A abstrair a implementação de um repository, através de uma interface, para podermos trocar a implementação no futuro, caso seja necessário
 O conceito de injeção de dependências e suas diversas vantagens no desenvolvimento
+
+Nesta aula, aprendemos:
+
+Que o PDO nos fornece uma API muito simples para gerenciar transações
+Como iniciar e finalizar uma transação, com beginTransaction e commit
+Que é possível "cancelar" uma transação, com o método rollBack
