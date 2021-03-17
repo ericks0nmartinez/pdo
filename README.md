@@ -49,3 +49,12 @@ Nesta aula, aprendemos:
 Que o PDO nos fornece uma API muito simples para gerenciar transações
 Como iniciar e finalizar uma transação, com beginTransaction e commit
 Que é possível "cancelar" uma transação, com o método rollBack
+
+Nesta aula, aprendemos:
+
+A importância de tratar erros em nossa aplicação
+Que, por padrão, o PDO não emite nenhum tipo de erro
+A recuperar as informações de erro através do método errorInfo
+Como informar ao PDO para lançar exceções em casos de erro
+Outros atributos para configurar a conexão com o banco utilizando PDO
+https://wiki.php.net/rfc/pdo_default_errmode

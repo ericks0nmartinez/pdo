@@ -5,6 +5,7 @@ namespace Alura\Pdo\Infastructure\Repository;
 
 use Alura\Pdo\Domain\Model\Student;
 use Alura\Pdo\Domain\Repository\StudentRepository;
+use http\Exception\RuntimeException;
 use PDO;
 
 class PdoStudentRepository implements StudentRepository
@@ -36,7 +37,7 @@ class PdoStudentRepository implements StudentRepository
 
     public function hydrateStudentList(\PDOStatement $stmt): array
     {
-        $studentDataList = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $studentDataList = $stmt->fetchAll();
         $studentList = [];
         foreach ($studentDataList as $studentData) {
             $studentList[] = new Student(
@@ -52,6 +53,9 @@ class PdoStudentRepository implements StudentRepository
     {
         $insertQuery = 'INSERT INTO students (name, birth_date) VALUES (:name, :birth_date);';
         $stmt = $this->connection->prepare($insertQuery);
+        if($stmt === false){
+            throw new RuntimeException($this->connection->errorInfo()[2]);
+        }
 
         $success = $stmt->execute([
            ':name' => $student->name(),
