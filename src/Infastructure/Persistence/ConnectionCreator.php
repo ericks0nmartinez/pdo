@@ -3,7 +3,6 @@
 
 namespace Alura\Pdo\Infastructure\Persistence;
 
-
 use PDO;
 
 class ConnectionCreator

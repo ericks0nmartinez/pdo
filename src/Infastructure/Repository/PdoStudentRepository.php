@@ -3,6 +3,7 @@
 
 namespace Alura\Pdo\Infastructure\Repository;
 
+use Alura\Pdo\Domain\Model\Phone;
 use Alura\Pdo\Domain\Model\Student;
 use Alura\Pdo\Domain\Repository\StudentRepository;
 use http\Exception\RuntimeException;
@@ -91,5 +92,32 @@ class PdoStudentRepository implements StudentRepository
         $stmt->bindValue(1,$student->id(), PDO::PARAM_INT);
 
         return $stmt->execute();
+    }
+
+    public function studentsWhithPhones(): array
+    {
+       $sqlQuery = "SELECT students.id,
+                           students.name,
+                           students.birth_date,
+                           phones.id as phones_id,
+                           phones.area_code,
+                           phones.number
+                    FROM students
+                        join phones ON students.id = phones.student_id;";
+       $stmt = $this->connection->query($sqlQuery);
+       $result = $stmt->fetchAll();
+       $studentsList = [];
+       foreach ($result as $row) {
+           if(!array_key_exists($row['id'], $studentsList)) {
+               $studentsList[$row['id']] = new Student(
+                   $row['id'],
+                   $row['name'],
+                   new \DateTimeImmutable($row['birth_date']),
+               );
+           }
+           $phone = new Phone($row['phone_id'], $row['area_code'], $row['number']);
+           $studentsList[$row['id']]->addPhone($phone);
+       }
+       return $studentsList;
     }
 }
